@@ -6,7 +6,7 @@ from flask_heroku import Heroku
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'oracle://system:secret@localhost:1521/xe'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'oracle://system:secret@localhost:1521/xe'
 
 api = Api(app)
 
@@ -77,11 +77,30 @@ class TodoList(Resource):
         return {'status':1, 'message': 'OK', 'data': marshal(todo, todo_fields)}
     
 
-
 api.add_resource(TodoList, '/api/todos', '/api/todos/')
 api.add_resource(Todo, '/api/todos/<int:tid>', '/api/todos/<int:tid>/')
 
 
+
+from flask import redirect, url_for
+
+@app.route('/load/<pid>')
+def handle_data(pid):
+    return 'Data Id #{}'.format(pid)
+
+@app.route('/red')
+def change_resp():
+    return redirect(url_for('handle_data', pid=10))
+
 if __name__ == '__main__':
     db.create_all()
-    app.run()
+    app.run(debug=True)
+
+
+from flask import session
+app.config["SECRET_KEY"] = "<your secret key>"
+session['key'] = 'value'    # create session key
+if 'key' in session:
+    variable = session['key']   #get session value
+del session['key'] #delete session key
+session.clear() #removes session completely
