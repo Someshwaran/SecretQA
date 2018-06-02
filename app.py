@@ -95,12 +95,3 @@ def change_resp():
 if __name__ == '__main__':
     db.create_all()
     app.run(debug=True)
-
-
-from flask import session
-app.config["SECRET_KEY"] = "<your secret key>"
-session['key'] = 'value'    # create session key
-if 'key' in session:
-    variable = session['key']   #get session value
-del session['key'] #delete session key
-session.clear() #removes session completely
