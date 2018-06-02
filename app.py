@@ -6,7 +6,7 @@ from flask_heroku import Heroku
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'oracle://system:secret@localhost:1521/xe'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'oracle://system:secret@localhost:1521/xe'
 
 api = Api(app)
 
